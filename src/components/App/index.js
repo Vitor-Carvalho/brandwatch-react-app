@@ -10,6 +10,7 @@ import {
 } from 'bw-axiom';
 import './App.css';
 import CommitHistory from '../CommitHistory';
+import Notifications from '../Notifications';
 import UserMenu from '../UserMenu';
 
 export default class App extends Component {
@@ -17,6 +18,7 @@ export default class App extends Component {
   render() {
     return (
       <Platform>
+        <Notifications />
         <Dock>
           <DockHeader>
             <DockIconLink

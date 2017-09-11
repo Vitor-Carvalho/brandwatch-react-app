@@ -5,13 +5,24 @@ import {
   commitsFetchFailed,
   COMMITS_FETCH_REQUESTED,
 } from '../store/commits';
+import {
+  notificationsAddNotification,
+} from '../store/notifications';
 
 export function* fetchCommits() {
   try {
     const commits = yield call(Api.fetchCommits);
     yield put(commitsFetchedSucceded(commits));
+    yield put(notificationsAddNotification({
+      type: 'success',
+      message: 'Get your ☂ it\'s raining commits!',
+    }));
   } catch ({ message }) {
     yield put(commitsFetchFailed(message));
+    yield put(notificationsAddNotification({
+      type: 'error',
+      message,
+    }));
   }
 }
 
