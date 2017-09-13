@@ -1,0 +1,8 @@
+{
+  "steps": "./qa-automation/step-definitions",
+  "pageObjects": "./qa-automation/page-objects",
+  "sharedObjects": "./qa-automation/shared-objects",
+  "reports": "./qa-automation/reports",
+  "browser": "firefox",
+  "timeout": 100000
+}

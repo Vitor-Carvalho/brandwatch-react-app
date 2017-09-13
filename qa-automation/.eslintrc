@@ -1,0 +1,12 @@
+{
+  "globals": {
+    "assert": true,
+    "by": true,
+    "driver": true,
+    "elem": true,
+    "helpers": true,
+    "page": true,
+    "selenium": true,
+    "until": true
+  }
+}
