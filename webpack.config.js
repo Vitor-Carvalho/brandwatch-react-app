@@ -46,6 +46,7 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       AUTH_AUDIENCE: 'brandwatch.com',
       AUTH_DOMAIN: 'https://auth.vizia-stage.gcp0.bwcom.net/store',
+      BW_DOMAIN: 'https://api.stage.brandwatch.net',
       MIXPANEL_TOKEN: null,
       NODE_ENV: null,
     }),

@@ -54,6 +54,7 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       AUTH_AUDIENCE: null,
       AUTH_DOMAIN: null,
+      BW_DOMAIN: 'https://api.stage.brandwatch.net',
       MIXPANEL_TOKEN: null,
       NODE_ENV: null,
     }),

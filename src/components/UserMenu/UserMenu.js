@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { UserMenu as UserMenuAxiom } from 'bw-axiom';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  UserMenu as UserMenuAxiom,
+} from 'bw-axiom';
 
 export default class UserMenu extends Component {
 
@@ -8,22 +12,20 @@ export default class UserMenu extends Component {
     email: PropTypes.string,
     imageUrl: PropTypes.string,
     name: PropTypes.string,
-    onProfileReceived: PropTypes.func.isRequired,
+    onChangePasswordClick: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
-    brandwatchAuthGetProfile: PropTypes.func.isRequired,
     brandwatchAuthLogout: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
-    const { onProfileReceived } = this.props;
-    const { brandwatchAuthGetProfile } = this.context;
-    brandwatchAuthGetProfile().then(onProfileReceived);
-  }
-
   render() {
-    const { email, name, imageUrl } = this.props;
+    const {
+      email,
+      name,
+      imageUrl,
+      onChangePasswordClick,
+    } = this.props;
     const { brandwatchAuthLogout } = this.context;
 
     if (!email) return null;
@@ -34,7 +36,15 @@ export default class UserMenu extends Component {
           firstName={ name }
           imageSrc={ imageUrl }
           lastName=""
-          onLogout={ () => brandwatchAuthLogout() } />
+          onLogout={ () => brandwatchAuthLogout() }>
+        <DropdownMenu>
+          <DropdownMenuItem
+              data-tid="change-password-menu-option"
+              onClick={ () => onChangePasswordClick() }>
+            Change password
+          </DropdownMenuItem>
+        </DropdownMenu>
+      </UserMenuAxiom>
     );
   }
 }

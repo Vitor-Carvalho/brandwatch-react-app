@@ -2,7 +2,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { routerMiddleware as createRouterMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import sagas from '../sagas/commits';
+import sagas from '../sagas/root';
 import reducers from './root';
 
 export default (history) => {

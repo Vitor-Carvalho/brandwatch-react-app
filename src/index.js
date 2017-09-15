@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import BrandwatchReactAuth from 'brandwatch-react-auth';
 import configureStore from './store/configure';
 import App from './components/App';
+import { setTokenStore } from './api/';
 
 const history = createHistory();
 const store = configureStore(history);
@@ -15,7 +16,8 @@ function render(AppComponent) {
   ReactDOM.render(
     <BrandwatchReactAuth
         audience={ process.env.AUTH_AUDIENCE }
-        domain={ process.env.AUTH_DOMAIN }>
+        domain={ process.env.AUTH_DOMAIN }
+        onCreateStore={ setTokenStore }>
       <AppContainer>
         <Provider store={ store }>
           <ConnectedRouter history={ history }>
