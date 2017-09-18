@@ -2,9 +2,10 @@ import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { apiChangePassword } from '../api/brandwatch';
 import {
   PROFILE_CHANGE_PASSWORD_REQUESTED,
-  profileChangePasswordFailed,
-  profileCloseChangePasswordDialog,
   emailSelector,
+  profileChangePasswordFailed,
+  profileChangePasswordSucceeded,
+  profileCloseChangePasswordDialog,
 } from '../store/profile';
 import { notificationsAddNotification } from '../store/notifications';
 
@@ -17,6 +18,7 @@ export function* changePassword({ payload }) {
     const { currentPassword, newPassword } = payload;
     const username = yield select(emailSelector);
     yield call(apiChangePassword, username, currentPassword, newPassword);
+    yield put(profileChangePasswordSucceeded());
     yield put(profileCloseChangePasswordDialog());
     yield put(notificationsAddNotification({
       type: 'success',

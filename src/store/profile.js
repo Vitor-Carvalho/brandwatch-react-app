@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 
 export const PROFILE_CHANGE_PASSWORD_REQUESTED = 'change password requested';
 export const PROFILE_CHANGE_PASSWORD_FAILED = 'change password failed';
+export const PROFILE_CHANGE_PASSWORD_SUCCEEDED = 'change password succeeded';
 export const PROFILE_DATA_RETRIEVED = 'profile received';
 export const PROFILE_OPEN_CHANGE_PASSWORD_DIALOG = 'ui open change password dialog';
 export const PROFILE_CLOSE_CHANGE_PASSWORD_DIALOG = 'ui close change password dialog';
@@ -17,8 +18,9 @@ const initialState = {
 
 export const emailSelector = ({ profile }) => profile.email;
 
-export const profileChangePasswordFailed = createAction(PROFILE_CHANGE_PASSWORD_FAILED);
+export const profileChangePasswordFailed = createAction(PROFILE_CHANGE_PASSWORD_FAILED, null, () => ({ mixpanel: { eventName: 'Change password failed' } }));
 export const profileChangePasswordRequested = createAction(PROFILE_CHANGE_PASSWORD_REQUESTED);
+export const profileChangePasswordSucceeded = createAction(PROFILE_CHANGE_PASSWORD_SUCCEEDED, null, () => ({ mixpanel: { eventName: 'Change password succeeded' } }));
 export const profileFetchSucceeded = createAction(
   PROFILE_DATA_RETRIEVED,
   ({ email, name, imageUrl, sub: id }) => ({

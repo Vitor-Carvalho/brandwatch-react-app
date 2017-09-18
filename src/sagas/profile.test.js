@@ -5,9 +5,10 @@ import * as Api from '../api/brandwatch';
 import { notificationsAddNotification } from '../store/notifications';
 import {
   PROFILE_CHANGE_PASSWORD_REQUESTED,
-  profileChangePasswordFailed,
-  profileCloseChangePasswordDialog,
   emailSelector,
+  profileChangePasswordFailed,
+  profileChangePasswordSucceeded,
+  profileCloseChangePasswordDialog,
 } from '../store/profile';
 import { changePassword, watchChangePassword } from './profile';
 
@@ -37,6 +38,7 @@ describe('profile sagas', () => {
       expect(gen.next(email).value)
         .toEqual(call(Api.apiChangePassword, email, currentPassword, newPassword));
 
+      expect(gen.next().value).toEqual(put(profileChangePasswordSucceeded()));
       expect(gen.next().value).toEqual(put(profileCloseChangePasswordDialog()));
       expect(gen.next().value).toEqual(put(notificationsAddNotification({
         type: 'success',

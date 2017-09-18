@@ -12,7 +12,7 @@ export default (history) => {
   middlewares.push(createSagaMiddleware());
 
   if (typeof document !== 'undefined' && process.env.MIXPANEL_TOKEN) {
-    middlewares.push(require('remimi')(process.env.MIXPANEL_TOKEN, {
+    middlewares.push(require('remimi').default(process.env.MIXPANEL_TOKEN, {
       uniqueIdSelector: ({ profile }) => profile.id,
       personSelector: ({ profile }) => ({
         clientId: profile.id,
