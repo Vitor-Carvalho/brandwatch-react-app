@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'bw-axiom';
 import './App.css';
+import atIds from '../../../at_ids';
 import Notifications from '../Notifications';
 import UserMenu from '../UserMenu';
 import ChangePassword from '../ChangePassword';
@@ -32,7 +33,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Platform>
+      <Platform data-ra-at={ atIds.App.root }>
         <Notifications />
         <Dock>
           <DockHeader>

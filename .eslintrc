@@ -1,3 +1,6 @@
 {
-  "extends": ["eslint-config-axiom"]
+  "extends": ["eslint-config-axiom"],
+  "globals": {
+    "jasmine": true
+  }
 }

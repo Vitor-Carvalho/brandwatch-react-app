@@ -5,5 +5,5 @@ cache:
     - node_modules
 script:
   - yarn lint
-  - yarn test
+  - yarn test:unit
   - yarn build
