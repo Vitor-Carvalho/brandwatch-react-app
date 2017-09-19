@@ -1,5 +1,6 @@
 import reducer, {
   profileChangePasswordFailed,
+  profileChangePasswordSucceeded,
   profileFetchSucceeded,
   profileCloseChangePasswordDialog,
 } from './profile';
@@ -21,9 +22,17 @@ describe('profile', () => {
   });
 
   test('failed to change password', () => {
-    expect(reducer(null, profileChangePasswordFailed({ message: 'Error!' })))
+    expect(reducer({ isSubmittingPassword: true }, profileChangePasswordFailed({ message: 'Error!' })))
       .toEqual({
         changePasswordError: 'Error!',
+        isSubmittingPassword: false,
+      });
+  });
+
+  test('successfully changed password', () => {
+    expect(reducer({ isSubmittingPassword: true }, profileChangePasswordSucceeded()))
+      .toEqual({
+        isSubmittingPassword: false,
       });
   });
 

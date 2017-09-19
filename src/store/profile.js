@@ -42,6 +42,15 @@ export default handleActions({
   [PROFILE_CHANGE_PASSWORD_FAILED]: (state, { payload }) => ({
     ...state,
     changePasswordError: payload.message,
+    isSubmittingPassword: false,
+  }),
+  [PROFILE_CHANGE_PASSWORD_REQUESTED]: (state) => ({
+    ...state,
+    isSubmittingPassword: true,
+  }),
+  [PROFILE_CHANGE_PASSWORD_SUCCEEDED]: (state) => ({
+    ...state,
+    isSubmittingPassword: false,
   }),
   [PROFILE_CLOSE_CHANGE_PASSWORD_DIALOG]: (state) => ({
     ...state,

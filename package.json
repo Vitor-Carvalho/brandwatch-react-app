@@ -40,7 +40,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "brandwatch-react-auth": "1.0.3",
-    "bw-axiom": "^26.0.0",
+    "bw-axiom": "^27.0.2",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.5",

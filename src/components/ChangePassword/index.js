@@ -5,6 +5,7 @@ import { profileCloseChangePasswordDialog, profileChangePasswordRequested } from
 const mapStateToProps = ({ profile }) => ({
   isOpen: profile.isChangePasswordDialogOpen,
   error: profile.changePasswordError,
+  isSubmitting: profile.isSubmittingPassword,
 });
 
 const mapDispatchToProps = {
