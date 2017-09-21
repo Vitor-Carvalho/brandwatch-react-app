@@ -39,7 +39,7 @@ export default class UserMenu extends Component {
           onLogout={ () => brandwatchAuthLogout() }>
         <DropdownMenu>
           <DropdownMenuItem
-              data-tid="change-password-menu-option"
+              data-ra-ut="change-password-menu-option"
               onClick={ () => onChangePasswordClick() }>
             Change password
           </DropdownMenuItem>

@@ -1,0 +1,5 @@
+.bw-product {
+  padding: var(--spacing-grid-size--x6) var(--spacing-grid-size--x6);
+  border-radius: var(--component-border-radius);
+  background-color: var(--color-ui-light);
+}

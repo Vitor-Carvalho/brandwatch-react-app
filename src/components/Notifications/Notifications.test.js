@@ -4,9 +4,7 @@ import { shallow } from 'enzyme';
 import { Notification } from 'bw-axiom';
 import Notifications from './Notifications';
 
-function render(props) {
-  return shallow(<Notifications { ...props } />);
-}
+const render = (props) => shallow(<Notifications { ...props } />);
 
 jest.useFakeTimers();
 

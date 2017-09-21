@@ -17,17 +17,19 @@ const initialState = {
 };
 
 export const emailSelector = ({ profile }) => profile.email;
+export const productsSelector = ({ profile }) => profile.products;
 
 export const profileChangePasswordFailed = createAction(PROFILE_CHANGE_PASSWORD_FAILED, null, () => ({ mixpanel: { eventName: 'Change password failed' } }));
 export const profileChangePasswordRequested = createAction(PROFILE_CHANGE_PASSWORD_REQUESTED);
 export const profileChangePasswordSucceeded = createAction(PROFILE_CHANGE_PASSWORD_SUCCEEDED, null, () => ({ mixpanel: { eventName: 'Change password succeeded' } }));
 export const profileFetchSucceeded = createAction(
   PROFILE_DATA_RETRIEVED,
-  ({ email, name, imageUrl, sub: id }) => ({
+  ({ email, name, imageUrl, sub: id, modules }) => ({
     email,
     id,
     name,
     imageUrl,
+    products: modules,
   }),
   () => ({ mixpanel: { eventName: 'App loaded' } })
 );

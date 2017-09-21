@@ -6,7 +6,7 @@ module.exports = {
   context: resolve(__dirname, 'src'),
   devServer: {
     hot: true,
-    contentBase: resolve(__dirname, 'dist'),
+    contentBase: resolve(__dirname, 'src'),
     historyApiFallback: true,
   },
   devtool: 'source-map',

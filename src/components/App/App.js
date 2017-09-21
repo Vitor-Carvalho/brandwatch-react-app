@@ -1,25 +1,28 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  Canvas,
-  Dock,
-  DockFooter,
-  DockHeader,
-  DockIconLink,
-  DockItem,
-  Platform,
+  Base,
+  Grid,
+  GridCell,
+  Heading,
+  LogoHorizontal,
+  ProgressInfinite,
+  Strong,
 } from 'bw-axiom';
 import './App.css';
 import atIds from '../../../at_ids';
-import Notifications from '../Notifications';
-import UserMenu from '../UserMenu';
+import AppBody from './AppBody';
+import AppHeader from './AppHeader';
 import ChangePassword from '../ChangePassword';
+import Notifications from '../Notifications';
+import Products from '../Products';
+import UserMenu from '../UserMenu';
 
 export default class App extends Component {
-
   static propTypes = {
+    name: PropTypes.string,
     onProfileReceived: PropTypes.func.isRequired,
-  }
+  };
 
   static contextTypes = {
     brandwatchAuthGetProfile: PropTypes.func.isRequired,
@@ -32,30 +35,39 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <Platform data-ra-at={ atIds.App.root }>
-        <Notifications />
-        <Dock>
-          <DockHeader>
-            <DockIconLink
-                active={ true }
-                data-tid="search"
-                icon="deck"
-                title="Search" />
-          </DockHeader>
-          <DockFooter>
-            <DockItem>
-              <UserMenu />
-            </DockItem>
-          </DockFooter>
-        </Dock>
-        <Canvas>
-          <div className="bw-layout-container">
-          </div>
-        </Canvas>
+    const { name } = this.props;
 
+    return (
+      <Base className="bw-app" data-ra-at={ atIds.App.root }>
         <ChangePassword />
-      </Platform>
+        <Notifications />
+        <AppHeader>
+          <Grid responsive={ false } verticalAlign="middle">
+            <GridCell>
+              <LogoHorizontal width="12rem" />
+            </GridCell>
+
+            <GridCell shrink>
+              <UserMenu />
+            </GridCell>
+          </Grid>
+        </AppHeader>
+
+        { name ? (
+          <AppBody>
+            <Base>
+              <Heading textSize="display1" textUnderline>
+                <Strong>Hi { name }</Strong>
+              </Heading>
+              <Products />
+            </Base>
+          </AppBody>
+        ) : (
+          <AppBody>
+            <ProgressInfinite size="large" />
+          </AppBody>
+        ) }
+      </Base>
     );
   }
 }

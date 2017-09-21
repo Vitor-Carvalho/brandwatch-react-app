@@ -11,7 +11,7 @@
     <% } %>
   </head>
   <body>
-    <div id="root"><% if (htmlWebpackPlugin.options.html) { %><%= htmlWebpackPlugin.options.html %><% } %></div>
+    <div class="bw-app-container" id="root"><% if (htmlWebpackPlugin.options.html) { %><%= htmlWebpackPlugin.options.html %><% } %></div>
     <% if (htmlWebpackPlugin.options.script) { %>
       <script src="<%= htmlWebpackPlugin.options.script %>" type="application/javascript"></script>
     <% } %>

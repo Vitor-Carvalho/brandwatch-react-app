@@ -3,10 +3,9 @@ import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { UserMenu as UserMenuAxiom } from 'bw-axiom';
 import UserMenu from './UserMenu';
+import unitTestSelector from '../../utils/unitTestSelector';
 
-function render(props, opts = {}) {
-  return shallow(<UserMenu { ...props } />, opts);
-}
+const render = (props, opts = {}) => shallow(<UserMenu { ...props } />, opts);
 
 describe('UserMenu', () => {
   let props;
@@ -39,7 +38,7 @@ describe('UserMenu', () => {
     });
 
     it('calls the onChangePasswordClick property when the user clicks change password', () => {
-      render(props, opts).find('[data-tid="change-password-menu-option"]').simulate('click');
+      render(props, opts).find(unitTestSelector('change-password-menu-option')).simulate('click');
       expect(props.onChangePasswordClick.calledOnce).toBeTruthy();
     });
   });
