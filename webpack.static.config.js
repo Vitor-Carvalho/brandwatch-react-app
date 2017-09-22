@@ -55,6 +55,7 @@ module.exports = {
       AUTH_AUDIENCE: null,
       AUTH_DOMAIN: null,
       BW_DOMAIN: 'https://api.stage.brandwatch.net',
+      LAUNCH_DARKLY_CLIENT_ID: '59c0fd9cb8a79d0ad1204816',
       MIXPANEL_TOKEN: null,
       NODE_ENV: null,
     }),

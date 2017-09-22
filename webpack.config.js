@@ -47,6 +47,7 @@ module.exports = {
       AUTH_AUDIENCE: 'brandwatch.com',
       AUTH_DOMAIN: 'https://auth.vizia-stage.gcp0.bwcom.net/store',
       BW_DOMAIN: 'https://api.stage.brandwatch.net',
+      LAUNCH_DARKLY_CLIENT_ID: '59c0fd9cb8a79d0ad1204815',
       MIXPANEL_TOKEN: null,
       NODE_ENV: null,
     }),

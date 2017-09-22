@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import {
   DropdownMenu,
   DropdownMenuItem,
+  Grid,
+  GridCell,
+  Icon,
   UserMenu as UserMenuAxiom,
 } from 'bw-axiom';
 
@@ -12,6 +15,7 @@ export default class UserMenu extends Component {
     email: PropTypes.string,
     imageUrl: PropTypes.string,
     name: PropTypes.string,
+    showAccountAdministration: PropTypes.bool.isRequired,
     onChangePasswordClick: PropTypes.func.isRequired,
   };
 
@@ -25,6 +29,7 @@ export default class UserMenu extends Component {
       name,
       imageUrl,
       onChangePasswordClick,
+      showAccountAdministration,
     } = this.props;
     const { brandwatchAuthLogout } = this.context;
 
@@ -38,6 +43,15 @@ export default class UserMenu extends Component {
           lastName=""
           onLogout={ () => brandwatchAuthLogout() }>
         <DropdownMenu>
+          { showAccountAdministration && (
+            <DropdownMenuItem data-ra-ut="account-administration-menu-option">
+              <Grid gutters="tiny" responsive={ false } shrink verticalAlign="middle">
+                <GridCell>Account Administration</GridCell>
+                <GridCell><Icon name="open" /></GridCell>
+              </Grid>
+            </DropdownMenuItem>
+          ) }
+
           <DropdownMenuItem
               data-ra-ut="change-password-menu-option"
               onClick={ () => onChangePasswordClick() }>

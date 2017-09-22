@@ -17,6 +17,7 @@ describe('UserMenu', () => {
       imageUrl: 'http://a.png',
       name: 'Ace',
       onChangePasswordClick: sinon.stub(),
+      showAccountAdministration: false,
     };
     opts = {
       lifecycleExperimental: true,
@@ -40,6 +41,13 @@ describe('UserMenu', () => {
     it('calls the onChangePasswordClick property when the user clicks change password', () => {
       render(props, opts).find(unitTestSelector('change-password-menu-option')).simulate('click');
       expect(props.onChangePasswordClick.calledOnce).toBeTruthy();
+    });
+
+    it('shows an account administration menu item', () => {
+      props.showAccountAdministration = true;
+      expect(render(props, opts)
+        .find(unitTestSelector('account-administration-menu-option'))
+        .length).toBe(1);
     });
   });
 });

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { featuresInitRequested } from '../../store/features';
 import { profileFetchSucceeded } from '../../store/profile';
 import App from './App';
 
@@ -7,6 +8,7 @@ const mapStateToProps = ({ profile }) => ({
 });
 
 const mapDispatchToProps = {
+  onInitializeFeatures: featuresInitRequested,
   onProfileReceived: profileFetchSucceeded,
 };
 

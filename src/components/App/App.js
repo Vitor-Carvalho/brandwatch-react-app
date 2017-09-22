@@ -21,6 +21,7 @@ import UserMenu from '../UserMenu';
 export default class App extends Component {
   static propTypes = {
     name: PropTypes.string,
+    onInitializeFeatures: PropTypes.func.isRequired,
     onProfileReceived: PropTypes.func.isRequired,
   };
 
@@ -29,9 +30,15 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    const { onProfileReceived } = this.props;
+    const { onInitializeFeatures, onProfileReceived } = this.props;
     const { brandwatchAuthGetProfile } = this.context;
-    brandwatchAuthGetProfile().then(onProfileReceived);
+    brandwatchAuthGetProfile().then((profile) => {
+      onProfileReceived(profile);
+
+      if (process.env.LAUNCH_DARKLY_CLIENT_ID) {
+        onInitializeFeatures(profile.sub);
+      }
+    });
   }
 
   render() {

@@ -20,6 +20,7 @@ describe('App', () => {
     };
     props = {
       name: undefined,
+      onInitializeFeatures: sinon.stub(),
       onProfileReceived: sinon.stub(),
     };
   });
