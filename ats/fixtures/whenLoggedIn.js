@@ -11,7 +11,7 @@ AxiomSelectors.Login.password = 'input[type="password"]';
 AxiomSelectors.Login.submit = 'button[type="submit"]';
 
 export default (runner) => runner
-  .goto(createPath(`q=${ new Date().getTime() }`))
+  .goto(createPath(`?q=${ new Date().getTime() }`))
   .insert(AxiomSelectors.Login.username, process.env.AT_LOGIN_USERNAME)
   .insert(AxiomSelectors.Login.password, process.env.AT_LOGIN_PASSWORD)
   .click(AxiomSelectors.Login.submit)
