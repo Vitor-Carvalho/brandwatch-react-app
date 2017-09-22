@@ -1,9 +1,8 @@
 {
   "name": "brandwatch-react-app",
-  "version": "1.0.0",
   "description": "A starting point for creating a react app in Brandwatch",
   "engines": {
-    "node": ">=8.4.0"
+    "node": ">=8.5.0"
   },
   "jest": {
     "transform": {

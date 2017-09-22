@@ -1,4 +1,3 @@
-// import createPath from '../createPath';
 import createRunner from '../createRunner';
 import { /*AxiomSelectors,*/ ReactAppSelectors } from '../selectors';
 import whenLoggedIn from '../fixtures/whenLoggedIn';
@@ -42,7 +41,7 @@ describe('Logging into ReactApp', () => {
   // });
 
   describe('with correct credentials', () => {
-    test('proceeds to the application', () =>
+    test('submitting form', () =>
       whenLoggedIn(runner)
         .exists(ReactAppSelectors.App.root)
         .end()

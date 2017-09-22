@@ -1,0 +1,222 @@
+groups:
+- name: build
+  jobs:
+  - yarn-install
+  - run-tests
+- name: stage
+  jobs:
+  - stage-build
+  - stage-deploy
+  - stage-automate
+- name: prod
+  jobs:
+  - prod-build
+  - prod-deploy
+  - prod-automate
+
+resource_types:
+  - name: npm-cache
+    type: docker-image
+    source:
+      repository: ymedlop/npm-cache-resource
+      tag: latest
+      yarn-support: true
+  - name: google-cloud-storage
+    type: docker-image
+    source:
+      repository: frodenas/gcs-resource
+  - name: slack-notification
+    type: docker-image
+    source:
+      repository: cfcommunity/slack-notification-resource
+      tag: latest
+
+resources:
+  - name: source
+    type: git
+    source: &repo-source
+      uri: ((github-uri))
+      check_every: 5s
+      branch: ((github-branch))
+      private_key: ((github-key))
+  - name: dependency-cache
+    type: npm-cache
+    source:
+      <<: *repo-source
+      paths:
+        - package.json
+  - name: stage-build-storage
+    type: google-cloud-storage
+    source:
+      bucket: ((stage-release-bucket))
+      regexp: ((app-name)).(.*).tar.gz"
+      json_key: ((stage-gcs-token))
+  - name: prod-build-storage
+    type: google-cloud-storage
+    source:
+      bucket: ((prod-release-bucket))
+      regexp: ((app-name)).(.*).tar.gz"
+      json_key: ((prod-gcs-token))
+  - name: slack
+    type: slack-notification
+    source:
+      url: ((slack-hook))
+
+jobs:
+  - name: yarn-install
+    plan:
+      - get: source
+        trigger: true
+      - get: dependency-cache
+
+  - name: run-tests
+    plan:
+      - get: source
+        trigger: true
+        passed: [yarn-install]
+      - get: dependency-cache
+        passed: [yarn-install]
+      - aggregate:
+        - task: run lint rules
+          file: source/ci/tasks/run_lint.yml
+          on_failure:
+            put: slack
+            params:
+              text: ((build-link))
+              attachments_file: messages/slack.txt
+        - task: run unit tests
+          file: source/ci/tasks/run_tests.yml
+          on_failure:
+            put: slack
+            params:
+              text: ((build-link))
+              attachments_file: messages/slack.txt
+
+  - name: stage-build
+    plan:
+      - get: dependency-cache
+      - get: source
+        trigger: true
+        passed: [run-tests]
+      - task: run build
+        file: source/ci/tasks/run_build.yml
+        params:
+          APP_NAME: ((app-name))
+          AUTH_AUDIENCE: ((stage-auth-audience))
+          AUTH_DOMAIN: ((stage-auth-domain))
+          BRANCH: ((github-branch))
+          MIXPANEL_TOKEN: ((stage-mixpanel-token))
+          NODE_ENV: 'production'
+      - put: stage-build-storage
+        params:
+          file: ./build/((app-name)).*.tar.gz
+
+  - name: stage-deploy
+    serial_groups: [stage]
+    plan:
+      - get: build
+        resource: stage-build-storage
+        trigger: true
+        passed: [stage-build]
+      - get: source
+        trigger: true
+        passed: [stage-build]
+      - task: deploy to stage
+        file: source/ci/tasks/run_deploy.yml
+        params:
+          APP_NAME: ((app-name))
+          GCP_SERVICE_ACCOUNT_KEY: ((stage-gcs-token))
+          STORAGE_BUCKET: ((stage-bucket))
+
+  - name: stage-automate
+    serial_groups: [stage]
+    plan:
+      - get: source
+        trigger: true
+        passed: [stage-deploy]
+      - get: dependency-cache
+        passed: [stage-build]
+      - task: run automation on stage
+        file: source/ci/tasks/run_automation.yml
+        params:
+          BRANCH: ((github-branch))
+          REPO: ((github-uri))
+          AT_RUN_IN_BACKGROUND: false,
+          AT_BASE_URL: ((stage-domain))
+          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_LOGIN_PASSWORD: ((at-login-password))
+          AUTH_DOMAIN: ((stage-auth-domain))
+    on_failure:
+      put: slack
+      params:
+        text: ((build-link))
+        attachments_file: messages/slack.txt
+    on_success:
+      put: slack
+      params:
+        text: ((build-link))
+        attachments_file: messages/slack.txt
+
+  - name: prod-build
+    plan:
+      - get: dependency-cache
+      - get: source
+        trigger: true
+        passed: [stage-automate]
+      - task: run build
+        file: source/ci/tasks/run_build.yml
+        params:
+          APP_NAME: ((app-name))
+          AUTH_AUDIENCE: ((prod-auth-audience))
+          AUTH_DOMAIN: ((prod-auth-domain))
+          BRANCH: ((github-branch))
+          MIXPANEL_TOKEN: ((prod-mixpanel-token))
+          NODE_ENV: 'production'
+      - put: prod-build-storage
+        params:
+          file: ./build/((app-name)).*.tar.gz
+
+  - name: prod-deploy
+    plan:
+      - get: build
+        resource: prod-build-storage
+        trigger: true
+        passed: [prod-build]
+      - get: source
+        trigger: true
+        passed: [prod-build]
+      - task: deploy to prod
+        file: source/ci/tasks/run_deploy.yml
+        params:
+          APP_NAME: ((app-name))
+          GCP_SERVICE_ACCOUNT_KEY: ((prod-gcs-token))
+          STORAGE_BUCKET: ((prod-bucket))
+
+  - name: prod-automate
+    plan:
+      - get: source
+        trigger: true
+        passed: [prod-deploy]
+      - get: dependency-cache
+        passed: [prod-build]
+      - task: run automation on prod
+        file: source/ci/tasks/run_automation.yml
+        params:
+          BRANCH: ((github-branch))
+          REPO: ((github-uri))
+          AT_RUN_IN_BACKGROUND: true
+          AT_BASE_URL: ((prod-domain))
+          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_LOGIN_PASSWORD: ((at-login-password))
+          AUTH_DOMAIN: ((prod-auth-domain))
+    # This will always fail unil the prod url is provisioned
+    # on_failure:
+    #   put: slack
+    #   params:
+    #     text: ((build-link))
+    #     attachments_file: messages/slack.txt
+    on_success:
+      put: slack
+      params:
+        text: ((build-link))
+        attachments_file: messages/slack.txt

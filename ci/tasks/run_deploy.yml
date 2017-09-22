@@ -1,0 +1,18 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: google/cloud-sdk
+    tag: latest
+
+inputs:
+  - name: source
+  - name: build
+
+outputs:
+  - name: messages
+
+run:
+  path: source/ci/scripts/run_deploy.sh
