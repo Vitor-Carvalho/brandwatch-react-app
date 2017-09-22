@@ -4,7 +4,7 @@ set -e -u -x
 echo $GCP_SERVICE_ACCOUNT_KEY > key.json
 gcloud auth activate-service-account --key-file key.json
 
-VERSION=$(<source/.git/refs/heads/gcp-integration)
+VERSION=$(<source/.git/refs/heads/$BRANCH)
 RESOURCE=$APP_NAME.$VERSION.tar.gz
 
 cd build;

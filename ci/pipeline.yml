@@ -125,6 +125,7 @@ jobs:
         file: source/ci/tasks/run_deploy.yml
         params:
           APP_NAME: ((app-name))
+          BRANCH: ((github-branch))
           GCP_SERVICE_ACCOUNT_KEY: ((stage-gcs-token))
           STORAGE_BUCKET: ((stage-bucket))
 
@@ -189,6 +190,7 @@ jobs:
         file: source/ci/tasks/run_deploy.yml
         params:
           APP_NAME: ((app-name))
+          BRANCH: ((github-branch))
           GCP_SERVICE_ACCOUNT_KEY: ((prod-gcs-token))
           STORAGE_BUCKET: ((prod-bucket))
 
