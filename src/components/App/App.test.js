@@ -2,7 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { ProgressInfinite } from 'bw-axiom';
-import App from './App';
+import { App } from './App';
 import Products from '../Products';
 
 const render = (props, context) => shallow(<App { ...props } />, {
@@ -20,6 +20,7 @@ describe('App', () => {
     };
     props = {
       name: undefined,
+      t: sinon.stub().returns('translated-text'),
       onInitializeFeatures: sinon.stub(),
       onProfileReceived: sinon.stub(),
     };

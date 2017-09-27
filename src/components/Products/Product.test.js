@@ -3,10 +3,11 @@ import { shallow } from 'enzyme';
 import Product from './Product';
 import unitTestSelector from '../../utils/unitTestSelector';
 
-const render = (props) => shallow(<Product { ...props } />);
+const render = (props, opts = {}) => shallow(<Product { ...props } />, opts);
 
 describe('Product', () => {
   let props;
+  let opts;
 
   beforeEach(() => {
     props = {
@@ -17,22 +18,28 @@ describe('Product', () => {
       moreInfoUrl: 'htt[://www.info.com',
       name: 'Ipsum',
     };
+    opts = {
+      lifecycleExperimental: true,
+      context: {
+        t: () => { return 'translated-text'; },
+      },
+    };
   });
 
   describe('render', () => {
     describe('when has product', () => {
       it('has a launch button', () => {
         props.hasProduct = true;
-        expect(render(props).find(unitTestSelector('launch')).length).toBe(1);
-        expect(render(props).find(unitTestSelector('more-info')).length).toBe(0);
+        expect(render(props, opts).find(unitTestSelector('launch')).length).toBe(1);
+        expect(render(props, opts).find(unitTestSelector('more-info')).length).toBe(0);
       });
     });
 
     describe('when does not have product', () => {
       it('has a more info button', () => {
         props.hasProduct = false;
-        expect(render(props).find(unitTestSelector('launch')).length).toBe(0);
-        expect(render(props).find(unitTestSelector('more-info')).length).toBe(1);
+        expect(render(props, opts).find(unitTestSelector('launch')).length).toBe(0);
+        expect(render(props, opts).find(unitTestSelector('more-info')).length).toBe(1);
       });
     });
   });

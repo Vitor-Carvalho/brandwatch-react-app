@@ -50,6 +50,9 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: './src/assets',
       to: './assets',
+    }, {
+      from: './locales',
+      to: './locales',
     }]),
     new webpack.EnvironmentPlugin({
       AUTH_AUDIENCE: null,

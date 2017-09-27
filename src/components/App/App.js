@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import {
   Base,
   Grid,
@@ -18,9 +19,10 @@ import Notifications from '../Notifications';
 import Products from '../Products';
 import UserMenu from '../UserMenu';
 
-export default class App extends Component {
+export class App extends Component {
   static propTypes = {
     name: PropTypes.string,
+    t: PropTypes.func.isRequired,
     onInitializeFeatures: PropTypes.func.isRequired,
     onProfileReceived: PropTypes.func.isRequired,
   };
@@ -42,7 +44,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, t } = this.props;
 
     return (
       <Base className="bw-app" data-ra-at={ atIds.App.root }>
@@ -64,7 +66,7 @@ export default class App extends Component {
           <AppBody>
             <Base>
               <Heading textSize="display1" textUnderline>
-                <Strong>Hi { name }</Strong>
+                <Strong>{ t('hi-name', { name }) }</Strong>
               </Heading>
               <Products />
             </Base>
@@ -78,3 +80,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default translate()(App);

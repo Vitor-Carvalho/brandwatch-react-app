@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { I18nextProvider } from 'react-i18next';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
@@ -10,6 +11,7 @@ import BrandwatchReactAuth from 'brandwatch-react-auth';
 import template from './index.ejs';
 import configureStore from './store/configure';
 import App from './components/App';
+import i18n from './i18n';
 
 if (typeof document !== 'undefined') {
   const history = createBrowserHistory();
@@ -21,7 +23,9 @@ if (typeof document !== 'undefined') {
         domain={ process.env.AUTH_DOMAIN }>
       <Provider store={ store }>
         <ConnectedRouter history={ history }>
-          <App />
+          <I18nextProvider i18n={ i18n }>
+            <App />
+          </I18nextProvider>
         </ConnectedRouter>
       </Provider>
     </BrandwatchReactAuth>,
@@ -43,7 +47,9 @@ export default ({ path, webpackStats }) => {
         html: renderToString(
           <Provider store={ store }>
             <StaticRouter location={ path }>
-              <App />
+              <I18nextProvider i18n={ i18n }>
+                <App />
+              </I18nextProvider>
             </StaticRouter>
           </Provider>
         ),

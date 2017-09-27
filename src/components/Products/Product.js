@@ -12,8 +12,11 @@ import {
 import FlexText from '../FlexText/FlexText';
 
 export default class Product extends Component {
+  static contextTypes = {
+    t: PropTypes.func.isRequired,
+  };
+
   static propTypes = {
-    description: PropTypes.string.isRequired,
     hasProduct: PropTypes.bool.isRequired,
     imageUrl: PropTypes.string.isRequired,
     launchUrl: PropTypes.string.isRequired,
@@ -22,8 +25,8 @@ export default class Product extends Component {
   };
 
   render() {
+    const { t } = this.context;
     const {
-      description,
       hasProduct,
       imageUrl,
       launchUrl,
@@ -46,7 +49,7 @@ export default class Product extends Component {
         </Heading>
 
         <Paragraph textColor="subtle">
-          <FlexText>{ description }</FlexText>
+          <FlexText>{ t(`${name.toLowerCase()}-description`) }</FlexText>
         </Paragraph>
 
         <ButtonGroup>
@@ -55,7 +58,7 @@ export default class Product extends Component {
                 data-ra-ut="launch"
                 full="small"
                 onClick={ () => window.open(launchUrl, '_blank') }>
-              Launch
+              { t('launch') }
             </Button>
           ) }
 
@@ -65,7 +68,7 @@ export default class Product extends Component {
                 full="small"
                 onClick={ () => window.open(moreInfoUrl, '_blank') }
                 style="secondary">
-              More Info
+              { t('more-info') }
             </Button>
           ) }
         </ButtonGroup>

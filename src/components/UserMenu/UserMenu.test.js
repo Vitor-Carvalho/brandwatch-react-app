@@ -23,6 +23,7 @@ describe('UserMenu', () => {
       lifecycleExperimental: true,
       context: {
         brandwatchAuthLogout: sinon.stub(),
+        t: () => { return 'translated-text'; },
       },
     };
   });

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: resolve(__dirname, 'src'),
@@ -40,6 +41,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new CopyWebPackPlugin([{
+      from: '../locales',
+      to: 'locales',
+    }]),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
     }),

@@ -11,6 +11,7 @@ export default class ChangePassword extends Component {
 
   render() {
     const { isOpen, ...rest } = this.props;
-    return isOpen ? <ChangePasswordAxiom { ...rest } isOpen={ isOpen } /> : null;
+
+    return isOpen ? <ChangePasswordAxiom isOpen={ isOpen } { ...rest } /> : null;
   }
 }

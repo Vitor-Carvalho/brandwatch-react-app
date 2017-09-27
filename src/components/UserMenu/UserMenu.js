@@ -21,6 +21,7 @@ export default class UserMenu extends Component {
 
   static contextTypes = {
     brandwatchAuthLogout: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
   };
 
   render() {
@@ -31,7 +32,7 @@ export default class UserMenu extends Component {
       onChangePasswordClick,
       showAccountAdministration,
     } = this.props;
-    const { brandwatchAuthLogout } = this.context;
+    const { brandwatchAuthLogout, t } = this.context;
 
     if (!email) return null;
 
@@ -46,7 +47,7 @@ export default class UserMenu extends Component {
           { showAccountAdministration && (
             <DropdownMenuItem data-ra-ut="account-administration-menu-option">
               <Grid gutters="tiny" responsive={ false } shrink verticalAlign="middle">
-                <GridCell>Account Administration</GridCell>
+                <GridCell>{ t('account-administration') }</GridCell>
                 <GridCell><Icon name="open" /></GridCell>
               </Grid>
             </DropdownMenuItem>
@@ -55,7 +56,7 @@ export default class UserMenu extends Component {
           <DropdownMenuItem
               data-ra-ut="change-password-menu-option"
               onClick={ () => onChangePasswordClick() }>
-            Change password
+            { t('change-password-user-menu-item') }
           </DropdownMenuItem>
         </DropdownMenu>
       </UserMenuAxiom>
