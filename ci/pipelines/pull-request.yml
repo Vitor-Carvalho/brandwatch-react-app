@@ -108,37 +108,38 @@ jobs:
             path: source
             status: success
 
-  # - name: automate
-  #   serial_groups: ['deploy']
-  #   plan:
-  #     - get: source
-  #       trigger: true
-  #       passed: [deploy]
-  #     - get: dependency-cache
-  #       passed: [deploy]
-  #     - put: source
-  #       params:
-  #         context: $BUILD_JOB_NAME
-  #         path: source
-  #         status: pending
-  #     - task: run automation on pr
-  #       file: source/ci/tasks/run_automation.yml
-  #       params:
-  #         STORAGE_BUCKET: ((dev-bucket))
-  #         AT_LOGIN_PASSWORD: ((at-login-password))
-  #         AT_LOGIN_USERNAME: ((at-login-username))
-  #         AT_RUN_IN_BACKGROUND: true
-  #         AUTH_DOMAIN: ((stage-auth-domain))
-  #         REPO: ((github-uri))
-  #       on_failure:
-  #         put: source
-  #         params:
-  #           context: $BUILD_JOB_NAME
-  #           path: source
-  #           status: failure
-  #       on_success:
-  #         put: source
-  #         params:
-  #           context: $BUILD_JOB_NAME
-  #           path: source
-  #           status: success
+  - name: automate
+    serial_groups: ['deploy']
+    plan:
+      - get: source
+        trigger: true
+        passed: [deploy]
+      - get: dependency-cache
+        passed: [deploy]
+      - put: source
+        params:
+          context: $BUILD_JOB_NAME
+          path: source
+          status: pending
+      - task: run automation on pr
+        file: source/ci/tasks/run_automation.yml
+        params:
+          STORAGE_BUCKET: ((dev-bucket))
+          AT_IGNORE_CERT_ERRORS: true,
+          AT_LOGIN_PASSWORD: ((at-login-password))
+          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_RUN_IN_BACKGROUND: true
+          AUTH_DOMAIN: ((stage-auth-domain))
+          REPO: ((github-uri))
+        on_failure:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: failure
+        on_success:
+          put: source
+          params:
+            context: $BUILD_JOB_NAME
+            path: source
+            status: success

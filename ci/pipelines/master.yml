@@ -107,12 +107,13 @@ jobs:
       - task: run automation on stage
         file: source/ci/tasks/run_automation.yml
         params:
-          REPO: ((github-uri))
-          AT_RUN_IN_BACKGROUND: false,
-          STORAGE_BUCKET: ((stage-bucket))
-          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_IGNORE_CERT_ERRORS: false,
           AT_LOGIN_PASSWORD: ((at-login-password))
+          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_RUN_IN_BACKGROUND: false,
           AUTH_DOMAIN: ((stage-auth-domain))
+          REPO: ((github-uri))
+          STORAGE_BUCKET: ((stage-bucket))
     on_failure:
       put: slack
       params:
@@ -156,12 +157,13 @@ jobs:
       - task: run automation on prod
         file: source/ci/tasks/run_automation.yml
         params:
-          REPO: ((github-uri))
-          AT_RUN_IN_BACKGROUND: true
-          STORAGE_BUCKET: ((prod-bucket))
-          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_IGNORE_CERT_ERRORS: false,
           AT_LOGIN_PASSWORD: ((at-login-password))
+          AT_LOGIN_USERNAME: ((at-login-username))
+          AT_RUN_IN_BACKGROUND: true
           AUTH_DOMAIN: ((prod-auth-domain))
+          REPO: ((github-uri))
+          STORAGE_BUCKET: ((prod-bucket))
     # This will always fail unil the prod url is provisioned
     # on_failure:
     #   put: slack

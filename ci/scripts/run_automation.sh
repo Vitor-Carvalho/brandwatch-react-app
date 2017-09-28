@@ -11,9 +11,9 @@ cat > res.json << EOF
 EOF
 . source/ci/scripts/create_message.sh
 
-if [ -r .git/id ]
+if [ -r source/.git/id ]
   then #PR deploy
-    PR_ID=$(< .git/id)
+    PR_ID=$(< source/.git/id)
     export STORAGE_BUCKET="$PR_ID.$STORAGE_BUCKET"
 fi
 
