@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-set -e -u -x
+set -e -u
 
 cat > res.json << EOF
 {

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-set -e -u -x
+set -e -u
 
 cat > res.json << EOF
 {
@@ -11,7 +10,14 @@ cat > res.json << EOF
 }
 EOF
 . source/ci/scripts/create_message.sh
-VERSION=$(<source/.git/refs/heads/$BRANCH)
+
+if [ -r .git/id ]
+  then #PR deploy
+    PR_ID=$(< .git/id)
+    export STORAGE_BUCKET="$PR_ID.$STORAGE_BUCKET"
+fi
+
+export AT_BASE_URL="https://$STORAGE_BUCKET"
 
 mv dependency-cache/node_modules source
 cd source
@@ -21,10 +27,9 @@ cd ../
 cat > res.json << EOF
 {
     "color": "good",
-    "link": "$REPO/commit/$VERSION",
     "title": "Successful deployment",
     "ts": $(date +%s),
-    "text": "Pipeline deployment complete: \n $REPO/commit/$VERSION"
+    "text": "Pipeline deployment complete"
 }
 EOF
 

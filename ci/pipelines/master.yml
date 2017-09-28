@@ -5,12 +5,10 @@ groups:
   - run-tests
 - name: stage
   jobs:
-  - stage-build
   - stage-deploy
   - stage-automate
 - name: prod
   jobs:
-  - prod-build
   - prod-deploy
   - prod-automate
 
@@ -21,10 +19,6 @@ resource_types:
       repository: ymedlop/npm-cache-resource
       tag: latest
       yarn-support: true
-  - name: google-cloud-storage
-    type: docker-image
-    source:
-      repository: frodenas/gcs-resource
   - name: slack-notification
     type: docker-image
     source:
@@ -45,18 +39,6 @@ resources:
       <<: *repo-source
       paths:
         - package.json
-  - name: stage-build-storage
-    type: google-cloud-storage
-    source:
-      bucket: ((stage-release-bucket))
-      regexp: ((app-name)).(.*).tar.gz"
-      json_key: ((stage-gcs-token))
-  - name: prod-build-storage
-    type: google-cloud-storage
-    source:
-      bucket: ((prod-release-bucket))
-      regexp: ((app-name)).(.*).tar.gz"
-      json_key: ((prod-gcs-token))
   - name: slack
     type: slack-notification
     source:
@@ -92,7 +74,7 @@ jobs:
               text: ((build-link))
               attachments_file: messages/slack.txt
 
-  - name: stage-build
+  - name: stage-deploy
     plan:
       - get: dependency-cache
       - get: source
@@ -104,23 +86,8 @@ jobs:
           APP_NAME: ((app-name))
           AUTH_AUDIENCE: ((stage-auth-audience))
           AUTH_DOMAIN: ((stage-auth-domain))
-          BRANCH: ((github-branch))
           MIXPANEL_TOKEN: ((stage-mixpanel-token))
           NODE_ENV: 'production'
-      - put: stage-build-storage
-        params:
-          file: ./build/((app-name)).*.tar.gz
-
-  - name: stage-deploy
-    serial_groups: [stage]
-    plan:
-      - get: build
-        resource: stage-build-storage
-        trigger: true
-        passed: [stage-build]
-      - get: source
-        trigger: true
-        passed: [stage-build]
       - task: deploy to stage
         file: source/ci/tasks/run_deploy.yml
         params:
@@ -136,14 +103,13 @@ jobs:
         trigger: true
         passed: [stage-deploy]
       - get: dependency-cache
-        passed: [stage-build]
+        passed: [stage-deploy]
       - task: run automation on stage
         file: source/ci/tasks/run_automation.yml
         params:
-          BRANCH: ((github-branch))
           REPO: ((github-uri))
           AT_RUN_IN_BACKGROUND: false,
-          AT_BASE_URL: ((stage-domain))
+          STORAGE_BUCKET: ((stage-bucket))
           AT_LOGIN_USERNAME: ((at-login-username))
           AT_LOGIN_PASSWORD: ((at-login-password))
           AUTH_DOMAIN: ((stage-auth-domain))
@@ -158,7 +124,7 @@ jobs:
         text: ((build-link))
         attachments_file: messages/slack.txt
 
-  - name: prod-build
+  - name: prod-deploy
     plan:
       - get: dependency-cache
       - get: source
@@ -170,22 +136,8 @@ jobs:
           APP_NAME: ((app-name))
           AUTH_AUDIENCE: ((prod-auth-audience))
           AUTH_DOMAIN: ((prod-auth-domain))
-          BRANCH: ((github-branch))
           MIXPANEL_TOKEN: ((prod-mixpanel-token))
           NODE_ENV: 'production'
-      - put: prod-build-storage
-        params:
-          file: ./build/((app-name)).*.tar.gz
-
-  - name: prod-deploy
-    plan:
-      - get: build
-        resource: prod-build-storage
-        trigger: true
-        passed: [prod-build]
-      - get: source
-        trigger: true
-        passed: [prod-build]
       - task: deploy to prod
         file: source/ci/tasks/run_deploy.yml
         params:
@@ -200,14 +152,13 @@ jobs:
         trigger: true
         passed: [prod-deploy]
       - get: dependency-cache
-        passed: [prod-build]
+        passed: [prod-deploy]
       - task: run automation on prod
         file: source/ci/tasks/run_automation.yml
         params:
-          BRANCH: ((github-branch))
           REPO: ((github-uri))
           AT_RUN_IN_BACKGROUND: true
-          AT_BASE_URL: ((prod-domain))
+          STORAGE_BUCKET: ((prod-bucket))
           AT_LOGIN_USERNAME: ((at-login-username))
           AT_LOGIN_PASSWORD: ((at-login-password))
           AUTH_DOMAIN: ((prod-auth-domain))

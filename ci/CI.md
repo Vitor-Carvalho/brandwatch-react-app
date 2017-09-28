@@ -12,4 +12,11 @@ If you want to make changes to the pipeline file you will need to set up the fol
 - Download [StackExchange blackbox](https://github.com/StackExchange/blackbox), and follow the instructions to [indoctrinate yourself on the system](https://github.com/StackExchange/blackbox#how-to-indoctrinate-a-new-user-into-the-system).
 
 ## Making Changes
-Once you have made the changes to the pipeline.yml file simply run `./ci/deploy.sh`, approve the changes if you are happy and the pipeline will up date.
+Once you have made the changes to the pipeline.yml file simply run the deploy command with the correct params.
+
+ `./ci/deploy-pr.sh -p [pipeline] -c [config]`
+
+e.g.
+`./ci/deploy-pr.sh -p pr-my-brandwatch -c ./ci/pipelines/pull-request.yml`
+
+ approve the changes if you are happy and the pipeline will update.
