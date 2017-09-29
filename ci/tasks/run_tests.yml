@@ -9,7 +9,9 @@ image_resource:
 
 inputs:
   - name: source
-  - name: dependency-cache
+
+caches:
+  - path: source/node_modules
 
 outputs:
   - name: messages

@@ -10,8 +10,8 @@ image_resource:
 inputs:
   - name: source
 
-outputs:
-  - name: messages
+caches:
+  - path: source/node_modules
 
 run:
-  path: source/ci/scripts/run_lint.sh
+  path: source/ci/scripts/run_install.sh

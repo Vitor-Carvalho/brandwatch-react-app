@@ -3,51 +3,30 @@ resource_types:
     type: docker-image
     source:
       repository: jtarchie/pr
-  - name: npm-cache
-    type: docker-image
-    source:
-      repository: ymedlop/npm-cache-resource
-      tag: latest
-      yarn-support: true
 
 resources:
   - name: source
     type: pull-request
-    source: &repo-source
+    source:
       access_token: ((github-access-token))
       private_key: ((github-key))
       repo: ((github-repo))
       uri: ((github-uri))
       version: every
-  - name: dependency-cache
-    type: npm-cache
-    source:
-      <<: *repo-source
-      paths:
-        - package.json
 
 jobs:
-  - name: yarn-install
-    serial_groups: ['npm-cache']
-    plan:
-      - get: source
-        trigger: true
-        version: every
-      - get: dependency-cache
-
   - name: test
     serial_groups: ['npm-cache']
     plan:
-      - get: dependency-cache
-        passed: [yarn-install]
       - get: source
         trigger: true
-        passed: [yarn-install]
       - put: source
         params:
           context: $BUILD_JOB_NAME
           path: source
           status: pending
+      - task: run yarn install
+        file: source/ci/tasks/run_install.yml
       - aggregate:
         - task: run lint rules
           file: source/ci/tasks/run_lint.yml
@@ -69,8 +48,6 @@ jobs:
   - name: deploy
     serial_groups: ['npm-cache']
     plan:
-      - get: dependency-cache
-        passed: [test]
       - get: source
         trigger: true
         passed: [test]
@@ -113,8 +90,6 @@ jobs:
     plan:
       - get: source
         trigger: true
-        passed: [deploy]
-      - get: dependency-cache
         passed: [deploy]
       - put: source
         params:

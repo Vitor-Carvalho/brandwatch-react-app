@@ -11,5 +11,6 @@ cat > res.json << EOF
 EOF
 source source/ci/scripts/create_message.sh
 
-mv dependency-cache/node_modules source
-cd source && yarn lint
+cd source
+yarn install
+yarn lint

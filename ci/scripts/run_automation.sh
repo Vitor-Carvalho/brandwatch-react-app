@@ -19,8 +19,8 @@ fi
 
 export AT_BASE_URL="https://$STORAGE_BUCKET"
 
-mv dependency-cache/node_modules source
 cd source
+yarn install
 xvfb-run -a --server-args="-screen 0 1024x768x24" yarn test:ats --forceExit
 cd ../
 
