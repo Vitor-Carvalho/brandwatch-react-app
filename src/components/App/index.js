@@ -4,7 +4,7 @@ import { profileFetchSucceeded } from '../../store/profile';
 import App from './App';
 
 const mapStateToProps = ({ profile }) => ({
-  name: profile.name,
+  firstName: profile.firstName,
 });
 
 const mapDispatchToProps = {

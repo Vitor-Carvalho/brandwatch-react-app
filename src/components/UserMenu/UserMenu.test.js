@@ -15,7 +15,8 @@ describe('UserMenu', () => {
     props = {
       email: 'a@b.co',
       imageUrl: 'http://a.png',
-      name: 'Ace',
+      firstName: 'Ace',
+      lastName: 'Spades',
       onChangePasswordClick: sinon.stub(),
       showAccountAdministration: false,
     };

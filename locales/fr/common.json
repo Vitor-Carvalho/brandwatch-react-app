@@ -1,5 +1,5 @@
 {
-  "hi-name": "Bonjour {{name}}",
+  "hi-name": "Bonjour {{firstName}}",
   "enter-current-password": "Entrez le mot de passe actuel",
   "account-administration": "Administration de compte",
   "analytics-description": "Découvrez les idées changeantes de jeu dans les milliards de conversations en ligne en ligne même",

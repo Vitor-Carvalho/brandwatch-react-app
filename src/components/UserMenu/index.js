@@ -5,8 +5,9 @@ import UserMenu from './UserMenu';
 
 const mapStateToProps = ({ features, profile }) => ({
   email: profile.email,
-  name: profile.name,
+  firstName: profile.firstName,
   imageUrl: profile.imageUrl,
+  lastName: profile.lastName,
   showAccountAdministration: features[FEATURES.enableAccountAdministration],
 });
 

@@ -10,10 +10,11 @@ export const PROFILE_CLOSE_CHANGE_PASSWORD_DIALOG = 'ui close change password di
 const initialState = {
   changePasswordError: '',
   email: null,
+  firstName: null,
   id: null,
-  isChangePasswordDialogOpen: false,
-  name: null,
   imageUrl: null,
+  isChangePasswordDialogOpen: false,
+  lastName: null,
 };
 
 export const emailSelector = ({ profile }) => profile.email;
@@ -24,11 +25,12 @@ export const profileChangePasswordRequested = createAction(PROFILE_CHANGE_PASSWO
 export const profileChangePasswordSucceeded = createAction(PROFILE_CHANGE_PASSWORD_SUCCEEDED, null, () => ({ mixpanel: { eventName: 'Change password succeeded' } }));
 export const profileFetchSucceeded = createAction(
   PROFILE_DATA_RETRIEVED,
-  ({ email, name, imageUrl, sub: id, modules }) => ({
+  ({ email, firstName, imageUrl, lastName, sub: id, modules }) => ({
     email,
     id,
-    name,
+    firstName,
     imageUrl,
+    lastName,
     products: modules,
   }),
   () => ({ mixpanel: { eventName: 'App loaded' } })

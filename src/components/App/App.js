@@ -21,7 +21,7 @@ import UserMenu from '../UserMenu';
 
 export class App extends Component {
   static propTypes = {
-    name: PropTypes.string,
+    firstName: PropTypes.string,
     t: PropTypes.func.isRequired,
     onInitializeFeatures: PropTypes.func.isRequired,
     onProfileReceived: PropTypes.func.isRequired,
@@ -44,7 +44,7 @@ export class App extends Component {
   }
 
   render() {
-    const { name, t } = this.props;
+    const { firstName, t } = this.props;
 
     return (
       <Base className="bw-app" data-ra-at={ atIds.App.root }>
@@ -62,11 +62,11 @@ export class App extends Component {
           </Grid>
         </AppHeader>
 
-        { name ? (
+        { firstName ? (
           <AppBody>
             <Base>
               <Heading textSize="display1" textUnderline>
-                <Strong>{ t('hi-name', { name }) }</Strong>
+                <Strong>{ t('hi-name', { firstName }) }</Strong>
               </Heading>
               <Products />
             </Base>

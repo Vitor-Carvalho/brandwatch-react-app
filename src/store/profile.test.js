@@ -6,9 +6,10 @@ import reducer, {
 } from './profile';
 
 export const profile = {
-  email: 'a@b.co',
-  name: 'Ace',
+  email: 'a@b.cd',
+  firstName: 'Ace',
   imageUrl: 'http://a.png',
+  lastName: 'Spades',
 };
 
 describe('profile', () => {
@@ -16,8 +17,9 @@ describe('profile', () => {
     expect(reducer(null, profileFetchSucceeded(profile)))
       .toEqual({
         email: profile.email,
-        name: profile.name,
+        firstName: profile.firstName,
         imageUrl: profile.imageUrl,
+        lastName: profile.lastName,
       });
   });
 

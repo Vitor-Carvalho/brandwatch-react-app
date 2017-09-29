@@ -1,5 +1,5 @@
 {
-  "hi-name": "Hi {{name}}",
+  "hi-name": "Hi {{firstName}}",
   "change-password-user-menu-item": "Change Password",
   "account-administration": "Account Administration",
   "analytics-description": "Discover game-changing insights within the billions of conversations happening online very day.",

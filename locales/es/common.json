@@ -1,5 +1,5 @@
 {
-  "hi-name": "Hola {{name}}",
+  "hi-name": "Hola {{firstName}}",
   "change-password-user-menu-item": "Cambiar contraseña",
   "account-administration": "Administración de cuentas",
   "analytics-description": "Descubre las ideas que cambian el juego dentro de los miles de millones de conversaciones que ocurren en línea hoy mismo.",

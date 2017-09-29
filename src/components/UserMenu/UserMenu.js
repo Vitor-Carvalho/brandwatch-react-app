@@ -13,8 +13,9 @@ export default class UserMenu extends Component {
 
   static propTypes = {
     email: PropTypes.string,
+    firstName: PropTypes.string,
     imageUrl: PropTypes.string,
-    name: PropTypes.string,
+    lastName: PropTypes.string,
     showAccountAdministration: PropTypes.bool.isRequired,
     onChangePasswordClick: PropTypes.func.isRequired,
   };
@@ -27,7 +28,8 @@ export default class UserMenu extends Component {
   render() {
     const {
       email,
-      name,
+      firstName,
+      lastName,
       imageUrl,
       onChangePasswordClick,
       showAccountAdministration,
@@ -39,9 +41,9 @@ export default class UserMenu extends Component {
     return (
       <UserMenuAxiom
           email={ email }
-          firstName={ name }
+          firstName={ firstName }
           imageSrc={ imageUrl }
-          lastName=""
+          lastName={ lastName }
           onLogout={ () => brandwatchAuthLogout() }>
         <DropdownMenu>
           { showAccountAdministration && (
