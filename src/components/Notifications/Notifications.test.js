@@ -4,14 +4,21 @@ import { shallow } from 'enzyme';
 import { Notification } from 'bw-axiom';
 import Notifications from './Notifications';
 
-const render = (props) => shallow(<Notifications { ...props } />);
+const render = (props, context) => shallow(<Notifications { ...props } />, {
+  context,
+  lifecycleExperimental: true,
+});
 
 jest.useFakeTimers();
 
 describe('Notifications', () => {
   let props;
+  let context;
 
   beforeEach(() => {
+    context = {
+      t: sinon.stub().returns('translated-text'),
+    };
     props = {
       notifications: [{
         id: '1',
@@ -28,11 +35,11 @@ describe('Notifications', () => {
   });
 
   it('renders an AxiomNotification for each notification', () => {
-    expect(render(props).find(Notification).length).toBe(2);
+    expect(render(props, context).find(Notification).length).toBe(2);
   });
 
   it('adds an onRemoveClick property to handle removing each notification', () => {
-    const notifications = render(props);
+    const notifications = render(props, context);
     notifications.find(Notification).at(0).prop('onRemoveClick')();
     expect(props.onNotificationRemoval.calledWith(props.notifications[0].id));
     notifications.find(Notification).at(1).prop('onRemoveClick')();
@@ -40,13 +47,13 @@ describe('Notifications', () => {
   });
 
   it('adds an onAppear property to handle auto removal when a duration is given', () => {
-    const notifications = render(props);
+    const notifications = render(props, context);
     notifications.find(Notification).at(0).prop('onAppear')();
     jest.runAllTimers();
     expect(props.onNotificationRemoval.calledWith(props.notifications[0].id));
   });
 
   it('does not add an onAppear property when no duration is given', () => {
-    expect(render(props).find(Notification).at(1).prop('onAppear')).toBe(undefined);
+    expect(render(props, context).find(Notification).at(1).prop('onAppear')).toBe(undefined);
   });
 });

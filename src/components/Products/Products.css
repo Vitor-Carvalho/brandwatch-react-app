@@ -1,5 +1,11 @@
 .bw-product {
+  display: flex;
+  flex-direction: column;
   padding: var(--spacing-grid-size--x6) var(--spacing-grid-size--x6);
   border-radius: var(--component-border-radius);
   background-color: var(--color-ui-light);
+}
+
+.bw-product__description {
+  flex: 1 0 auto;
 }

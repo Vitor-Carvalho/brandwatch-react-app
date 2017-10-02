@@ -21,6 +21,7 @@ i18n
       loadPath: '/locales/{{lng}}/{{ns}}.json',
       addPath: 'locales/add/{{lng}}/{{ns}}',
     },
+    load: 'languageOnly',
   });
 
 i18n.addResourceBundle('en', 'common', common);

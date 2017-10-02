@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import omit from 'lodash.omit';
 import {
   Base,
   Button,
@@ -34,6 +35,7 @@ export default class Product extends Component {
       name,
       ...rest
     } = this.props;
+    const props = omit(rest, 'description');
 
     const imageDimensions = {
       maxWidth: '100%',
@@ -41,16 +43,18 @@ export default class Product extends Component {
     };
 
     return (
-      <Base { ...rest } className="bw-product">
+      <Base { ...props } className="bw-product">
         <Image src={ imageUrl } style={ imageDimensions } />
 
         <Heading textSize="headline">
           <Strong>{ name }</Strong>
         </Heading>
 
-        <Paragraph textColor="subtle">
-          <FlexText>{ t(`${name.toLowerCase()}-description`) }</FlexText>
-        </Paragraph>
+        <Base className="bw-product__description">
+          <Paragraph textColor="subtle">
+            <FlexText>{ t(`${name.toLowerCase()}-description`) }</FlexText>
+          </Paragraph>
+        </Base>
 
         <ButtonGroup>
           { hasProduct && (

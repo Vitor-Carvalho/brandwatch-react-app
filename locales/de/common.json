@@ -1,10 +1,11 @@
 {
   "hi-name": "Hallo {{firstName}}",
-  "change-password-user-menu-item": "Kennwort ändern",
-  "account-administration": "Kontoverwaltung",
-  "analytics-description": "Entdecke Spiel-wechselnde Einblicke in den Milliarden von Gesprächen, die jeden Tag online stattfinden.",
-  "vizia-description": "Wecken und erleuchten Sie Ihre Geschäftsgeschichten. Setzen Sie sie vor irgendjemand, irgendwo. Keine Barrieren.",
-  "audiences-description": "Großes Marketing beginnt mit dem Verständnis deines Publikums. Erfahren Sie, was ihnen wichtig ist.",
-  "launch": "Starten",
-  "more-info": "Mehr Info"
+  "change-password-user-menu-item": "Passwort ändern",
+  "account-administration": "Account-Verwaltung",
+  "analytics-description": "Entdecken Sie die entscheidenden Insights in den Millionen von Online-Gesprächen, die jeden Tag online passieren.",
+  "vizia-description": "Erwecken Sie Ihre Business-Stories zum Leben. Erzählen Sie Geschichten, die jeder sieht und versteht. Überall. Ohne Einschränkungen.",
+  "audiences-description": "Finden Sie genau die Zielgruppen, die Sie adressieren möchten. Und erfahren Sie, was wichtig für sie ist.",
+  "launch": "Start",
+  "more-info": "Mehr Infos",
+  "successful-password-change": "Passwort wurde erfolgreich geändert. 🔒"
 }

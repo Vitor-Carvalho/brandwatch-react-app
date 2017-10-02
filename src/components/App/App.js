@@ -28,8 +28,19 @@ export class App extends Component {
   };
 
   static contextTypes = {
+    i18n: PropTypes.object.isRequired,
     brandwatchAuthGetProfile: PropTypes.func.isRequired,
   };
+
+  static childContextTypes = {
+    axiomLanguage: PropTypes.string.isRequired,
+  };
+
+  getChildContext() {
+    return {
+      axiomLanguage: this.context.i18n.language,
+    };
+  }
 
   componentDidMount() {
     const { onInitializeFeatures, onProfileReceived } = this.props;

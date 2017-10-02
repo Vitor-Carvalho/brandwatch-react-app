@@ -6,6 +6,10 @@ import {
 } from 'bw-axiom';
 
 export default class Notifications extends Component {
+  static contextTypes = {
+    t: PropTypes.func.isRequired,
+  };
+
   static propTypes = {
     notifications: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -17,6 +21,7 @@ export default class Notifications extends Component {
   };
 
   render() {
+    const { t } = this.context;
     const { notifications, onNotificationRemoval } = this.props;
 
     return (
@@ -29,7 +34,7 @@ export default class Notifications extends Component {
                 : undefined) }
               onRemoveClick={ () => onNotificationRemoval(id) }
               type={ type }>
-            { message }
+            { t(message) }
           </AxiomNotification>
         ) }
       </AxiomNotifications>

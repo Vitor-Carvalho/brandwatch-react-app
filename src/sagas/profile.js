@@ -22,7 +22,7 @@ export function* changePassword({ payload }) {
     yield put(profileCloseChangePasswordDialog());
     yield put(notificationsAddNotification({
       type: 'success',
-      message: 'Your password has been changed successfully 🔒',
+      message: 'successful-password-change',
     }));
   } catch ({ message }) {
     yield put(profileChangePasswordFailed({ message }));

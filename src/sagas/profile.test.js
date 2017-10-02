@@ -42,7 +42,7 @@ describe('profile sagas', () => {
       expect(gen.next().value).toEqual(put(profileCloseChangePasswordDialog()));
       expect(gen.next().value).toEqual(put(notificationsAddNotification({
         type: 'success',
-        message: 'Your password has been changed successfully 🔒',
+        message: 'successful-password-change',
       })));
     });
 

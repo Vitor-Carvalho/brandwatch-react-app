@@ -17,7 +17,7 @@ export default class Products extends Component {
     return (
       <Grid { ...rest }>
         { products.map(({ moduleId, ...rest }) =>
-          <GridCell key={ moduleId } shrink>
+          <GridCell key={ moduleId } shrink subGrid>
             <Product { ...rest } />
           </GridCell>
         ) }

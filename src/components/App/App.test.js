@@ -16,6 +16,7 @@ describe('App', () => {
 
   beforeEach(() => {
     context = {
+      i18n: { language: 'en' },
       brandwatchAuthGetProfile: sinon.stub().resolves(),
     };
     props = {

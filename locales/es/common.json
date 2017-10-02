@@ -1,10 +1,11 @@
 {
   "hi-name": "Hola {{firstName}}",
-  "change-password-user-menu-item": "Cambiar contraseña",
-  "account-administration": "Administración de cuentas",
-  "analytics-description": "Descubre las ideas que cambian el juego dentro de los miles de millones de conversaciones que ocurren en línea hoy mismo.",
-  "vizia-description": "Despierta e ilumina tus historias de negocios, ponlas delante de cualquier persona, en cualquier lugar, sin barreras.",
-  "audiences-description": "El gran marketing comienza con la comprensión de su audiencia Aprenda lo que es importante para ellos.",
-  "launch": "Lanzamiento",
-  "more-info": "Más información"
+  "change-password-user-menu-item": "Cambiar Contraseña",
+  "account-administration": "Administración de Cuenta",
+  "analytics-description": "Descubre hallazgos dentro de billones de conversaciones que ocurren a diario en el internet que cambiarán el juego.",
+  "vizia-description": "Despierta e ilumina tus historias de negocios. Ponlas frente a cualquiera. donde quieras. Sin barreras.",
+  "audiences-description": "Un gran mercadeo empieza por conocer a tu audiencia. Descubre qué es importante para ellos.",
+  "launch": "Lanzar",
+  "more-info": "Más Info",
+  "successful-password-change": "Su contraseña ha sido cambiada exitosamente. 🔒"
 }
