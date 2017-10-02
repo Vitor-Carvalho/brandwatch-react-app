@@ -16,7 +16,6 @@ resources:
 
 jobs:
   - name: test
-    serial_groups: ['npm-cache']
     plan:
       - get: source
         trigger: true
@@ -25,8 +24,6 @@ jobs:
           context: $BUILD_JOB_NAME
           path: source
           status: pending
-      - task: run yarn install
-        file: source/ci/tasks/run_install.yml
       - aggregate:
         - task: run lint rules
           file: source/ci/tasks/run_lint.yml
@@ -46,7 +43,6 @@ jobs:
             status: success
 
   - name: deploy
-    serial_groups: ['npm-cache']
     plan:
       - get: source
         trigger: true
@@ -86,7 +82,6 @@ jobs:
             status: success
 
   - name: automate
-    serial_groups: ['deploy']
     plan:
       - get: source
         trigger: true

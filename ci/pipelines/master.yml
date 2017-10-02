@@ -36,8 +36,6 @@ jobs:
     plan:
       - get: source
         trigger: true
-      - task: run yarn install
-        file: source/ci/tasks/run_install.yml
       - aggregate:
         - task: run lint rules
           file: source/ci/tasks/run_lint.yml
@@ -76,7 +74,6 @@ jobs:
           STORAGE_BUCKET: ((stage-bucket))
 
   - name: stage-automate
-    serial_groups: [stage]
     plan:
       - get: source
         trigger: true
