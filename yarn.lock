@@ -484,6 +484,12 @@ babel-messages@^6.23.0:
   dependencies:
     babel-runtime "^6.22.0"
 
+babel-plugin-axiom@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-axiom/-/babel-plugin-axiom-1.0.1.tgz#6c1dc96f95c6596d3e0609e1f86c9b59ad89cc83"
+  dependencies:
+    babylon "^6.18.0"
+
 babel-plugin-check-es2015-constants@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
@@ -1160,7 +1166,7 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
-bw-axiom@^27.0.2:
+bw-axiom@^27.3.2:
   version "27.3.3"
   resolved "https://registry.yarnpkg.com/bw-axiom/-/bw-axiom-27.3.3.tgz#3ef4ec3a1bc21e87b5d9e825da79383c67fdead1"
   dependencies:
