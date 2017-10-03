@@ -35,8 +35,8 @@ cd public;
 # copy everything into the bucket
 gsutil -m cp -r * gs://$STORAGE_BUCKET
 
-# set the index html as the default
-gsutil -m web set -m index.html gs://$STORAGE_BUCKET
+# set the index html as the default, and forward all errors to the app
+gsutil -m web set -m index.html -e index.html gs://$STORAGE_BUCKET
 
 # give all users access to everything
 gsutil -m acl -r ch -u AllUsers:R gs://$STORAGE_BUCKET
