@@ -10,7 +10,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import BrandwatchReactAuth from 'brandwatch-react-auth';
 import template from './index.ejs';
 import configureStore from './store/configure';
-import App from './components/App';
+import Root from './components/Root/Root';
 import i18n from './i18n';
 
 if (typeof document !== 'undefined') {
@@ -24,7 +24,7 @@ if (typeof document !== 'undefined') {
       <Provider store={ store }>
         <ConnectedRouter history={ history }>
           <I18nextProvider i18n={ i18n }>
-            <App />
+            <Root />
           </I18nextProvider>
         </ConnectedRouter>
       </Provider>
@@ -48,7 +48,7 @@ export default ({ path, webpackStats }) => {
           <Provider store={ store }>
             <StaticRouter location={ path }>
               <I18nextProvider i18n={ i18n }>
-                <App />
+                <Root />
               </I18nextProvider>
             </StaticRouter>
           </Provider>

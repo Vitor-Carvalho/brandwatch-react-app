@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import BrandwatchReactAuth from 'brandwatch-react-auth';
 import configureStore from './store/configure';
-import App from './components/App';
+import Root from './components/Root/Root';
 import { setTokenStore } from './api/';
 import i18n from './i18n';
 
@@ -34,8 +34,8 @@ function render(AppComponent) {
   );
 }
 
-render(App);
+render(Root);
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => render(App));
+  module.hot.accept('./components/Root/Root', () => render(Root));
 }

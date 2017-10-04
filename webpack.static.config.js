@@ -37,7 +37,7 @@ module.exports = {
     }],
   },
   output: {
-    filename: './assets/bundle.[chunkhash].min.js',
+    filename: 'assets/bundle.[chunkhash].min.js',
     path: path.resolve(__dirname, 'public'),
     publicPath: '/public',
     libraryTarget: 'umd',
@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin('public'),
     new ExtractTextPlugin({
-      filename: './assets/bundle.[contenthash].min.css',
+      filename: 'assets/bundle.[contenthash].min.css',
     }),
     new CopyWebpackPlugin([{
       from: './src/assets',
