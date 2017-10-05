@@ -81,6 +81,7 @@ jobs:
       - task: run automation on stage
         file: source/ci/tasks/run_automation.yml
         params:
+          AUTH_AUDIENCE: ((auth-audience))
           AT_IGNORE_CERT_ERRORS: false,
           AT_LOGIN_PASSWORD: ((at-login-password))
           AT_LOGIN_USERNAME: ((at-login-username))
@@ -128,6 +129,7 @@ jobs:
       - task: run automation on prod
         file: source/ci/tasks/run_automation.yml
         params:
+          AUTH_AUDIENCE: ((auth-audience))
           AT_IGNORE_CERT_ERRORS: false,
           AT_LOGIN_PASSWORD: ((at-login-password))
           AT_LOGIN_USERNAME: ((at-login-username))

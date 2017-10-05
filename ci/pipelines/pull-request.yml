@@ -95,6 +95,7 @@ jobs:
         file: source/ci/tasks/run_automation.yml
         params:
           STORAGE_BUCKET: ((dev-bucket))
+          AUTH_AUDIENCE: ((auth-audience))
           AT_IGNORE_CERT_ERRORS: true,
           AT_LOGIN_PASSWORD: ((at-login-password))
           AT_LOGIN_USERNAME: ((at-login-username))

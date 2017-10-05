@@ -18,7 +18,7 @@ function render(AppComponent) {
   ReactDOM.render(
     <BrandwatchReactAuth
         audience={ process.env.AUTH_AUDIENCE }
-        domain={ process.env.AUTH_DOMAIN }
+        domain={ `${ process.env.AUTH_DOMAIN }/store` }
         onCreateStore={ setTokenStore }>
       <AppContainer>
         <Provider store={ store }>

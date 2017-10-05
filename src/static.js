@@ -12,6 +12,7 @@ import template from './index.ejs';
 import configureStore from './store/configure';
 import Root from './components/Root/Root';
 import i18n from './i18n';
+import { setTokenStore } from './api/';
 
 if (typeof document !== 'undefined') {
   const history = createBrowserHistory();
@@ -20,7 +21,8 @@ if (typeof document !== 'undefined') {
   ReactDOM.render(
     <BrandwatchReactAuth
         audience={ process.env.AUTH_AUDIENCE }
-        domain={ process.env.AUTH_DOMAIN }>
+        domain={ `${ process.env.AUTH_DOMAIN }/store` }
+        onCreateStore={ setTokenStore }>
       <Provider store={ store }>
         <ConnectedRouter history={ history }>
           <I18nextProvider i18n={ i18n }>

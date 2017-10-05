@@ -50,7 +50,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       AUTH_AUDIENCE: 'brandwatch.com',
-      AUTH_DOMAIN: 'https://auth-gateway.platform-stage.gcp0.bwcom.net/store',
+      AUTH_DOMAIN: 'https://auth-gateway.platform-stage.gcp0.bwcom.net',
       BW_DOMAIN: 'https://api.stage.brandwatch.net',
       LAUNCH_DARKLY_CLIENT_ID: '59c0fd9cb8a79d0ad1204815',
       MIXPANEL_TOKEN: null,

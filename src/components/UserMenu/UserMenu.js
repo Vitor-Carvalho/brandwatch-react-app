@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import atIds from '../../../at_ids';
 import React, { Component } from 'react';
 import {
   DropdownMenu,
@@ -47,7 +48,9 @@ export default class UserMenu extends Component {
           onLogout={ () => brandwatchAuthLogout() }>
         <DropdownMenu>
           { showAccountAdministration && (
-            <DropdownMenuItem data-ra-ut="account-administration-menu-option">
+            <DropdownMenuItem
+                data-ra-at={ atIds.UserMenu.accountAdmin }
+                data-ra-ut="account-administration-menu-option">
               <Grid gutters="tiny" responsive={ false } shrink verticalAlign="middle">
                 <GridCell>{ t('account-administration') }</GridCell>
                 <GridCell><Icon name="open" /></GridCell>
@@ -56,6 +59,7 @@ export default class UserMenu extends Component {
           ) }
 
           <DropdownMenuItem
+              data-ra-at={ atIds.UserMenu.changePassword }
               data-ra-ut="change-password-menu-option"
               onClick={ () => onChangePasswordClick() }>
             { t('change-password-user-menu-item') }
