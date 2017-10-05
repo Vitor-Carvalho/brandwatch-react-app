@@ -1,4 +1,5 @@
 import createRunner from '../createRunner';
+import createPath from '../createPath';
 import { AxiomSelectors, ReactAppSelectors } from '../selectors';
 import whenLoggedIn from '../fixtures/whenLoggedIn';
 
@@ -12,7 +13,7 @@ describe('Changing Password', () => {
 
   beforeEach(() => {
     runner = whenLoggedIn(createRunner())
-      .goto(process.env.AT_BASE_URL)
+      .goto(createPath())
       .wait(AxiomSelectors.UserMenu.activate)
       .click(AxiomSelectors.UserMenu.activate)
       .click(ReactAppSelectors.UserMenu.changePassword)

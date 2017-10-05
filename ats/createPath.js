@@ -1,1 +1,1 @@
-export default (path = '') => `${process.env.AT_BASE_URL}/${path}`;
+export default (path = '') => `${process.env.AT_BASE_URL}/${path}?q=${ new Date().getTime() }`;
